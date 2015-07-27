@@ -1,0 +1,10 @@
+{
+    "name": "bensmith/lista",
+    "authors": [
+        {
+            "name": "Ben",
+            "email": "ben-smith@blueyonder.co.uk"
+        }
+    ],
+    "require": {}
+}
