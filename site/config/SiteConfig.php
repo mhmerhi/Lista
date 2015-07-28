@@ -28,8 +28,9 @@ class SiteConfig
             'MemcachedManager'      => 'Reverb\Lib\MemcachedManager',
             'DbConnection'          => 'Reverb\Lib\DbConnection',
             // Components
-            'Hello'               => 'Site\Components\Hello',
+            'Hello'                 => 'Site\Components\Hello',
             'Login'                 => 'Site\Components\Login',
+            'Meals'                 => 'Site\Components\Meals',
             // Models
         );
 
