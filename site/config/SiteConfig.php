@@ -15,6 +15,7 @@ class SiteConfig
     const DB_PASS = 'wpe84u9384u5';
     const DB_DB   = 'lista';
 
+    const DEFAULT_LOGIN = '/lista/html/login/index';
     const DEFAULT_PAGE_AFTER_LOGIN = '/lista/html/view';
 
     private $classes = array();
