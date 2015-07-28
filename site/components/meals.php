@@ -17,8 +17,9 @@ class Meals extends ComponentBase
     Index($params)
     {
         $meals = [
-            ["name" => "Red Pesto Pasta", "ingredients" =>[1,2,3]],
-            ["name" => "Sausages and Yorkies", "ingredients" => [4,5,6]],
+            ["id" => 0, "name" => "Red Pesto Pasta",      "ingredients" => [1,2,3]],
+            ["id" => 1, "name" => "Sausages and Yorkies", "ingredients" => [4,5,6]],
+            ["id" => 2, "name" => "Pork Baguettes",       "ingredients" => [7,8,9]],
         ];
 
         $this->ExposeVariable("msg", "Meals!");
