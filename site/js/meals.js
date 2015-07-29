@@ -27,16 +27,12 @@ $(document).ready(function() {
     //
     // Event Handler Registration
     //
-
-    //
-    // Event Handlers
-    //
     $('ul#mealsList').delegate('li', 'click', mealsListClick);
     $('ul#selectedMealsList').delegate('li', 'click', selectedMealsListClick);
     $('#btnMakePlanner').on('click', makePlanner);
 
     //
-    // Callbacks
+    // Event Handlers
     //
     function mealsListClick()
     {
@@ -66,8 +62,8 @@ $(document).ready(function() {
         var dinnerCell = $('<td class="dinnerCell">').html('Dinner');
 
         headerRow.append(dayCell)
-                 .append(lunchCell)
-                 .append(dinnerCell);
+            .append(lunchCell)
+            .append(dinnerCell);
 
         table.append(headerRow);
 
@@ -91,6 +87,10 @@ $(document).ready(function() {
         plannerContainer.append(table);
         return false;
     }
+
+    //
+    // Callbacks
+    //
 
     //
     // Helpers
