@@ -28,7 +28,7 @@ $(document).ready(function() {
     // Event Handler Registration
     //
     $('ul#mealsList').delegate('li', 'click', mealsListClick);
-    $('ul#selectedMealsList').delegate('li', 'click', selectedMealsListClick);
+    $('body').on('click', 'table#tblWeeklyPlanner li', selectedMealsListClick);
     $('#btnMakePlanner').on('click', makePlanner);
 
     //
@@ -36,18 +36,20 @@ $(document).ready(function() {
     //
     function mealsListClick()
     {
-        var meal = this;
+        var meal = $(this);
 
-        var selectedList = $('ul#selectedMealsList');
-        selectedList.append(meal);
+        var firstEmptyMealSlot = $('table#tblWeeklyPlanner').find('div:empty:first');
+        meal.clone().appendTo(firstEmptyMealSlot);
+        meal.remove();
     }
 
     function selectedMealsListClick()
     {
-        var meal = this;
+        var meal = $(this);
 
         var mealList = $('ul#mealsList');
-        mealList.append(meal);
+        mealList.append(meal.clone());
+        meal.remove();
     }
 
     function makePlanner()
@@ -72,8 +74,8 @@ $(document).ready(function() {
             var j = i % 7;
             var row = $('<tr>');
             var dayCell    = $('<td class="dayCell">').html(days[j]);
-            var lunchCell  = $('<td class="lunchCell">').append($('<input>', {type: 'text'}).addClass('lunchInput'));
-            var dinnerCell = $('<td class="dinnerCell">').append($('<input>', {type: 'text'}).addClass('dinnerInput'));
+            var lunchCell  = $('<td class="lunchCell">').append($('<div>').addClass('lunchInput'));
+            var dinnerCell = $('<td class="dinnerCell">').append($('<div>').addClass('dinnerInput'));
 
             row.append(dayCell)
                 .append(lunchCell)
