@@ -3,9 +3,6 @@
 <div id="meals" class="">
     <h3>All Meals</h3>
     <ul id="mealsList">
-    <?php foreach ($meals as $meal): ?>
-    <li><?= $meal['name'];?></li>
-    <?php endforeach; ?>
     </ul>
 </div>
 

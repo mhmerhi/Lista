@@ -10,6 +10,9 @@ $(document).ready(function() {
     //
     // Page Initialisation
     //
+    // Get the Meals List
+    GetMealsList();
+
 
     //
     // Event Handler Registration
@@ -21,14 +24,38 @@ $(document).ready(function() {
     //
     function addNewMeal()
     {
+        // ajax the new meal off to be added to database
+
+        // !!AS A CALLBACK TO ABOVE!! refresh the meals list
+        GetMealsList();
+
         return false;
     }
 
     //
     // Callbacks
     //
+    function getMealsCB(data)
+    {
+        var mealListUL = $('#mealsList');
+        mealListUL.find('li').remove();
+
+        $.each(data.meals, function(id, value) {
+            $('<li>').text(value.name).appendTo(mealListUL);
+        })
+    }
 
     //
     // Helpers
     //
+    function GetMealsList() {
+        $.ajax({
+            url: '/lista/json/meals/getMeals',
+            data: {},
+            dataType: "json",
+            context: $(this),
+            success: getMealsCB
+
+        });
+    }
 });

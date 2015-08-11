@@ -20,10 +20,12 @@ class Meals extends ComponentBase
 
     protected function Index($params)
     {
-        $meals = $this->mealRepository->GetAll();
-
         $this->ExposeVariable("msg", "Meals!");
-        $this->ExposeVariable("meals", $meals);
     }
 
+    protected function GetMeals()
+    {
+        $meals = $this->mealRepository->GetAll();
+        $this->ExposeVariable("meals", $meals);
+    }
 }
