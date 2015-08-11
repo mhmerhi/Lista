@@ -21,7 +21,7 @@
                 Number Of Days
                 <input type="text" id="numDays" value="7" />
             </label>
-            <button id="btnMakePlanner" class="btn-small btn-primary">Make Planner</button>
+            <button id="btnMakePlanner" class="btn btn-sm btn-primary">Make Planner</button>
         </fieldset>
     </form>
 </div>

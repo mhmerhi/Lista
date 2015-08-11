@@ -16,6 +16,8 @@ $(document).ready(function() {
         'Sunday',
     ];
 
+    var plannerContainer = $('#weeklyPlanner');
+
     //
     // Page Initialisation
     //
@@ -23,6 +25,8 @@ $(document).ready(function() {
     for (var dayIndex in days) {
         startDaySelect.append($('<option>', {'value': dayIndex, html: days[dayIndex]}));
     }
+
+    addMakeListButton();
 
     //
     // Event Handler Registration
@@ -54,13 +58,13 @@ $(document).ready(function() {
 
     function makePlanner()
     {
-        var numDays  = $('#numDays').val();
+        var numDays = $('#numDays').val();
         var startDay = $('#startDay').val();
 
         var table = $('<table>').attr('id', 'tblWeeklyPlanner').addClass("table table-striped");
         var headerRow = $('<tr>');
-        var dayCell    = $('<th class="dayCell">').html('Day');
-        var lunchCell  = $('<th class="lunchCell">').html('Lunch');
+        var dayCell = $('<th class="dayCell">').html('Day');
+        var lunchCell = $('<th class="lunchCell">').html('Lunch');
         var dinnerCell = $('<th class="dinnerCell">').html('Dinner');
 
         headerRow.append(dayCell)
@@ -69,12 +73,10 @@ $(document).ready(function() {
 
         table.append(headerRow);
 
-
-        for (var i = startDay; i < numDays; i++) {
-            var j = i % 7;
+        for (var i = 0, j = startDay; i < numDays; i++, j = ++j % 7) {
             var row = $('<tr>');
-            var dayCell    = $('<td class="dayCell">').html(days[j]);
-            var lunchCell  = $('<td class="lunchCell">').append($('<div>').addClass('lunchInput'));
+            var dayCell = $('<td class="dayCell">').html(days[j]);
+            var lunchCell = $('<td class="lunchCell">').append($('<div>').addClass('lunchInput'));
             var dinnerCell = $('<td class="dinnerCell">').append($('<div>').addClass('dinnerInput'));
 
             row.append(dayCell)
@@ -84,9 +86,24 @@ $(document).ready(function() {
             table.append(row);
         }
 
-        var plannerContainer = $('#weeklyPlanner');
+        // add the weekly planner to the page
         plannerContainer.find('#tblWeeklyPlanner').remove();
         plannerContainer.append(table);
+
+        return false;
+    }
+
+    function addMakeListButton()
+    {
+        // Add a button to generate the shopping list
+        var makeListBtn = $('<button>')
+            .attr('id', 'makeShoppingListBtn')
+            .html('Make List')
+            .addClass('btn btn-sm');
+
+        var bodyContent = $('#bodyContent');
+        bodyContent.find('#makeShoppingListBtn').remove();
+        bodyContent.append(makeListBtn);
         return false;
     }
 
