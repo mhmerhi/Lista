@@ -1,3 +1,16 @@
 li {
     cursor: pointer;
+    list-style: none;
+}
+
+#bodyContent {
+    padding: 0px 20px;
+}
+
+.dayCell {
+    width: 20%;
+}
+
+.lunchCell,.dinnerCell {
+    width: 40%;
 }

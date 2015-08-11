@@ -57,11 +57,11 @@ $(document).ready(function() {
         var numDays  = $('#numDays').val();
         var startDay = $('#startDay').val();
 
-        var table = $('<table>').attr('id', 'tblWeeklyPlanner');
-        var headerRow = $('<th>');
-        var dayCell    = $('<td class="dayCell">').html('Day');
-        var lunchCell  = $('<td class="lunchCell">').html('Lunch');
-        var dinnerCell = $('<td class="dinnerCell">').html('Dinner');
+        var table = $('<table>').attr('id', 'tblWeeklyPlanner').addClass("table table-striped");
+        var headerRow = $('<tr>');
+        var dayCell    = $('<th class="dayCell">').html('Day');
+        var lunchCell  = $('<th class="lunchCell">').html('Lunch');
+        var dinnerCell = $('<th class="dinnerCell">').html('Dinner');
 
         headerRow.append(dayCell)
             .append(lunchCell)
