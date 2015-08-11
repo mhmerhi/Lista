@@ -6,19 +6,21 @@ use Reverb\System\ComponentBase;
 use Site\Models\MealRepository;
 
 
-class Meals extends ComponentBase
+class Planner extends ComponentBase
 {
     public function __construct(MealRepository $mealRepository)
     {
         $this->mealRepository = $mealRepository;
     }
 
-    protected function RequiresAuthentication()
+    protected function
+    RequiresAuthentication()
     {
         return false;
     }
 
-    protected function Index($params)
+    protected function 
+    Index($params)
     {
         $meals = $this->mealRepository->GetAll();
 

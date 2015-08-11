@@ -28,13 +28,16 @@ class SiteConfig
             'MemcachedManager'      => 'Reverb\Lib\MemcachedManager',
             'DbConnection'          => 'Reverb\Lib\DbConnection',
             // Components
-            'Hello'                 => 'Site\Components\Hello',
             'Login'                 => 'Site\Components\Login',
             'Meals'                 => 'Site\Components\Meals',
+            'Planner'               => 'Site\Components\Planner',
             // Models
+            'MealRepository'        => 'Site\Models\MealRepository',
         );
 
         $this->factories = array(
+            'Site\Components\Meals' => 'Site\Components\Service\MealsFactory',
+            'Site\Components\Planner' => 'Site\Components\Service\PlannerFactory',
         );
 
         $this->initializers = array(

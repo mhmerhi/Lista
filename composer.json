@@ -1,10 +1,26 @@
 {
     "name": "bensmith/lista",
+
+    "description": "Shopping List Generator",
+
+    "license": "proprietary",
+
     "authors": [
         {
             "name": "Ben",
             "email": "ben-smith@blueyonder.co.uk"
         }
     ],
-    "require": {}
+
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.zendframework.com/"
+        }
+    ],
+
+    "require": {
+        "zendframework/zend-db": "2.*",
+        "zendframework/zend-stdlib": "2.*"
+    }
 }

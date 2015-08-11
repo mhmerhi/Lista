@@ -9,28 +9,13 @@
     </ul>
 </div>
 
-<div id="selectedMeals" class="">
-    <h3>Selected Meals</h3>
-    <ul id="selectedMealsList">
-        <!-- meals added here dynamically -->
-    </ul>
-</div>
-
-<div id="weeklyPlanner">
-    <h3>Weekly Planner</h3>
+<div>
     <form>
-        <fieldset>
-            <label>
-                Start Day
-                <select id="startDay">
-                    <!-- options added dynamically -->
-                </select>
-            </label>
-            <label>
-                Number Of Days
-                <input type="text" id="numDays" />
-            </label>
-            <button id="btnMakePlanner" class="btn-small btn-primary">Make Planner</button>
-        </fieldset>
+        <h3>Add Meal</h3>
+        <label>
+            Meal Name
+            <input type="text" id="newMealName" />
+        </label>
+        <button id="newMealSubmit">Add</button>
     </form>
 </div>
