@@ -1,5 +1,3 @@
-<h1><?php echo $msg; ?></h1>
-
 <div id="meals" class="">
     <h3>All Meals</h3>
     <ul id="mealsList">

@@ -25,9 +25,16 @@ $(document).ready(function() {
     function addNewMeal()
     {
         // ajax the new meal off to be added to database
-
-        // !!AS A CALLBACK TO ABOVE!! refresh the meals list
-        GetMealsList();
+        var data = {
+            'name': $('#newMealName').val()
+        };
+        $.ajax({
+            url: '/lista/json/meals/addMeal',
+            data: data,
+            dataType: "json",
+            context: $(this),
+            success: GetMealsList
+        });
 
         return false;
     }
@@ -55,7 +62,6 @@ $(document).ready(function() {
             dataType: "json",
             context: $(this),
             success: getMealsCB
-
         });
     }
 });
