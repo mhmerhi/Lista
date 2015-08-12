@@ -34,6 +34,7 @@ $(document).ready(function() {
     $('ul#mealsList').delegate('li', 'click', mealsListClick);
     $('body').on('click', 'table#tblWeeklyPlanner li', selectedMealsListClick);
     $('#btnMakePlanner').on('click', makePlanner);
+    $('body').on('click','#makeShoppingListBtn', makeShoppingList);
 
     //
     // Event Handlers
@@ -93,6 +94,14 @@ $(document).ready(function() {
         return false;
     }
 
+
+    //
+    // Callbacks
+    //
+
+    //
+    // Helpers
+    //
     function addMakeListButton()
     {
         // Add a button to generate the shopping list
@@ -107,11 +116,8 @@ $(document).ready(function() {
         return false;
     }
 
-    //
-    // Callbacks
-    //
-
-    //
-    // Helpers
-    //
+    function makeShoppingList() {
+        // TODO: actually make a list...
+        console.log('list!');
+    };
 });
