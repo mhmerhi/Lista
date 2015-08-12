@@ -30,8 +30,18 @@ class Meals extends ComponentBase
 
     protected function AddMeal($params)
     {
-        $newId = $this->mealRepository->addMeal($params['name']);
+        $newId = $this->mealRepository->AddMeal($params['name']);
 
         $this->ExposeVariable('success', $newId !== false);
+    }
+
+    protected function EditMeal($params)
+    {
+        $mealId  = $params['id'];
+        $newName = $params['name'];
+
+        $affectedRows = $this->mealRepository->EditMeal($mealId, $newName);
+
+        $this->ExposeVariable('success', $affectedRows > 0);
     }
 }

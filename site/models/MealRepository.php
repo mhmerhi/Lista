@@ -8,6 +8,7 @@
 namespace Site\Models;
 
 use Reverb\System\ModelBase;
+use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Db\Sql\Sql;
 
 
@@ -18,7 +19,7 @@ class MealRepository extends ModelBase {
         $this->modelName = 'meal';
     }
 
-    public function addMeal($mealName)
+    public function AddMeal($mealName)
     {
         $sql = new Sql($this->getDbAdapter(), 'meal');
         $insert = $sql->insert()
@@ -29,5 +30,18 @@ class MealRepository extends ModelBase {
         $newId = $statement->execute()->getGeneratedValue();
 
         return $newId;
+    }
+
+    public function EditMeal($id, $name)
+    {
+        $sql = new Sql($this->getDbAdapter(), 'meal');
+        $update = $sql->update()
+            ->set(['name' => $name])
+            ->where(['id' => $id]);
+
+        $statement = $sql->prepareStatementForSqlObject($update);
+        $result = $statement->execute()->getAffectedRows();
+
+        return $result;
     }
 }
