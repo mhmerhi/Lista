@@ -1,0 +1,14 @@
+div.mealDiv {
+    width: 300px;
+}
+
+span.editTag {
+    margin-left: 10px;
+    font-size: 11px;
+    color: darkblue;
+    cursor: pointer;
+}
+
+#bodyContent {
+    padding: 0px 20px;
+}

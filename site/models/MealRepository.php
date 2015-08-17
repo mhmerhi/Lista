@@ -8,8 +8,9 @@
 namespace Site\Models;
 
 use Reverb\System\ModelBase;
-use Zend\Db\Sql\Predicate\Predicate;
+use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\Sql\Sql;
+use Zend\Db\Sql\Select;
 
 
 class MealRepository extends ModelBase {
@@ -17,6 +18,52 @@ class MealRepository extends ModelBase {
     public function __construct()
     {
         $this->modelName = 'meal';
+    }
+
+    public function GetAllMealsWithIngredients()
+    {
+        $sql = new Sql($this->getDbAdapter());
+        $select = $sql->select()
+            ->columns(['meal_id' => 'id', 'meal_name' => 'name'])
+            ->from(['m' => 'meal'])
+            ->join(
+                ['mi' => 'meal_ingredient'],
+                'm.id = mi.meal_id',
+                [],
+                Select::JOIN_LEFT
+            )
+            ->join(
+                ['i' => 'ingredient'],
+                'i.id = mi.ingredient_id',
+                ['ingredient_id' => 'id', 'ingredient_name' => 'name'],
+                Select::JOIN_LEFT
+            );
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+
+        return $this->ProcessMealsAndIngredients($result);
+    }
+
+    private function ProcessMealsAndIngredients(ResultInterface $mealResultObject)
+    {
+        $processedMeals = [];
+        foreach ($mealResultObject as $row) {
+            $mealId = $row['meal_id'];
+
+            if (!isset($processedMeals[$mealId])) {
+                $processedMeals[$mealId] = [
+                    'meal_name' => $row['meal_name'],
+                    'ingredients' => [],
+                ];
+            }
+
+            if (!is_null($row['ingredient_id'])) {
+                $processedMeals[$mealId]['ingredients'][$row['ingredient_id']] = $row['ingredient_name'];
+            }
+        }
+
+        return $processedMeals;
     }
 
     public function AddMeal($mealName)

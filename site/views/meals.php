@@ -1,7 +1,7 @@
 <div id="meals" class="">
     <h3>All Meals</h3>
-    <ul id="mealsList">
-    </ul>
+    <div id="mealsList">
+    </div>
 </div>
 
 <div>

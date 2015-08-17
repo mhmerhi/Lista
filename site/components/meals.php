@@ -24,7 +24,8 @@ class Meals extends ComponentBase
 
     protected function GetMeals()
     {
-        $meals = $this->mealRepository->GetAll();
+        //$meals = $this->mealRepository->GetAll();
+        $meals = $this->mealRepository->GetAllMealsWithIngredients();
         $this->ExposeVariable("meals", $meals);
     }
 

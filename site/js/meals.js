@@ -18,9 +18,10 @@ $(document).ready(function() {
     // Event Handler Registration
     //
     $('#newMealSubmit').on('click', addNewMeal);
-    $('#mealsList').on('click', 'li', makeMealEditable);
-    $('#mealsList').on('click', 'li input', function() {return false;});
-    $('#mealsList').on('click', 'li button', editMeal);
+    $('#mealsList').on('click', 'div.mealDiv span.editTag', makeMealEditable);
+    $('#mealsList').on('click', 'input', function() {return false;});
+    $('#mealsList').on('click', 'button.editButton', editMeal);
+    $('#mealsList').on('click', 'button.cancelButton', cancelEditMeal);
 
     //
     // Event Handlers
@@ -44,15 +45,18 @@ $(document).ready(function() {
 
     function makeMealEditable()
     {
-        var oldName = $(this).find('span').text();
-        $(this).find('input,button,span').remove();
-        $(this).append($('<input>').attr('type', 'text').val(oldName))
-               .append($('<button>').text('Edit'));
+        var oldName = $(this).siblings('span.mealName').text();
+        $(this).siblings('input,button,span').remove();
+        $(this).parent()
+            .prepend($('<button>').addClass('btn btn-sm cancelButton').text('Cancel').data('oldName', oldName))
+            .prepend($('<button>').addClass('btn btn-primary btn-sm editButton').text('Save'))
+            .prepend($('<input>').attr('type', 'text').val(oldName));
+        $(this).remove();
     }
 
     function editMeal()
     {
-        var mealId   = $(this).parents('li').data('mealId');
+        var mealId   = $(this).parents('div.mealDiv').data('mealId');
         var mealName = $(this).siblings('input').val();
 
         // ajax the new name and id up to the server!
@@ -67,12 +71,22 @@ $(document).ready(function() {
             success: function() {
                 // Decide: do this this way, or just get the whole list again.
                 var newName = $(this).siblings('input').val();
-                $(this).parents('li').append($('<span>').text(newName));
-                $(this).parents('li').find('input,button').remove();
+                $(this).parents('div.mealDiv')
+                    .prepend($('<span>').addClass('editTag').text('(Edit)'))
+                    .prepend($('<span>').addClass('mealName').text(newName));
+                $(this).parents('div.mealDiv').find('input,button').remove();
             }
         });
 
         return false;
+    }
+
+    function cancelEditMeal()
+    {
+        $(this).parents('div.mealDiv')
+            .prepend($('<span>').addClass('editTag').text('(Edit)'))
+            .prepend($('<span>').addClass('mealName').text($(this).data('oldName')));
+        $(this).parents('div.mealDiv').find('input,button').remove();
     }
 
     //
@@ -81,12 +95,29 @@ $(document).ready(function() {
     function getMealsCB(data)
     {
         var mealListUL = $('#mealsList');
-        mealListUL.find('li').remove();
+        mealListUL.find('div.mealDiv').remove();
 
-        $.each(data.meals, function(id, value) {
-            var li = $('<li>').data('mealId', value.id).append($('<span>').text(value.name));
-            li.appendTo(mealListUL);
-        })
+        $.each(data.meals, function(mealId, meal) {
+            // Ingredients List
+            var ingredientDiv = $('<div>');
+            var ingredientList = $('<ul>');
+            $.each(meal.ingredients, function(ingId, ingredient){
+                var ingredientLi = $('<li>')
+                    .data('ingredientId', ingId)
+                    .append($('<span>').text(ingredient));
+                ingredientLi.appendTo(ingredientList);
+            });
+            ingredientList.appendTo(ingredientDiv);
+
+            // Meal block
+            var mealLi = $('<div>')
+                .data('mealId', mealId)
+                .addClass("mealDiv well well-sm")
+                .append($('<span>').addClass('mealName').text(meal.meal_name))
+                .append($('<span>').addClass('editTag').text('(Edit)'))
+                .append(ingredientList);
+            mealLi.appendTo(mealListUL);
+        });
     }
 
     //
