@@ -16,8 +16,9 @@ class MealsFactory {
 
     public function CreateInstance(DependencyContainer $dependencyContainer)
     {
-        $mealRepository = $dependencyContainer->GetInstance('MealRepository');
+        $mealRepository       = $dependencyContainer->GetInstance('MealRepository');
+        $ingredientRepository = $dependencyContainer->GetInstance('IngredientRepository');
 
-        return new Meals($mealRepository);
+        return new Meals($mealRepository, $ingredientRepository);
     }
 }

@@ -22,6 +22,10 @@ $(document).ready(function() {
     $('#mealsList').on('click', 'input', function() {return false;});
     $('#mealsList').on('click', 'button.editButton', editMeal);
     $('#mealsList').on('click', 'button.cancelButton', cancelEditMeal);
+    $('#mealsList').on('click', 'button.saveIngredButton', saveIngredient);
+    $('#mealsList').on('keyup', 'input[id="newIngredName"]', submitNewIngredient);
+    $('#mealsList').on('click', 'button.cancelIngredButton', cancelIngredient);
+    $('#mealsList').on('click', 'span.addIngredient', showAddIngredient);
 
     //
     // Event Handlers
@@ -86,7 +90,64 @@ $(document).ready(function() {
         $(this).parents('div.mealDiv')
             .prepend($('<span>').addClass('editTag').text('(Edit)'))
             .prepend($('<span>').addClass('mealName').text($(this).data('oldName')));
-        $(this).parents('div.mealDiv').find('input,button').remove();
+        $(this).parents('div.mealDiv').children('input,button').remove();
+    }
+
+    function cancelIngredient()
+    {
+        $(this).parents('li').remove();
+    }
+
+    function saveIngredient()
+    {
+        var mealId   = $(this).parents('div.mealDiv').data('mealId');
+        var ingredientName = $(this).siblings('input').val();
+
+        // ajax the new name and id up to the server!
+        $.ajax({
+            url: '/lista/json/meals/addIngredientToMeal',
+            data: {
+                mealId: mealId,
+                ingredientName: ingredientName
+            },
+            dataType: 'json',
+            context: $(this),
+            success: function() {
+                // Decide: do this this way, or just get the whole list again.
+                var newName = $(this).siblings('input').val();
+                $(this).parents('li')
+                    .append($('<span>').text(ingredientName));
+                $(this).parents('div.mealDiv').find('input,button').remove();
+            }
+        });
+
+        return false;
+    }
+
+    function showAddIngredient()
+    {
+        var newIngredientName     = $('<input>',
+                                        {id: 'newIngredName', type: 'text'});
+        var newIngredientSave     = $('<button>')
+                                        .addClass('btn btn-sm cancelIngredButton')
+                                        .text('Cancel');
+        var newIngredientCancel   = $('<button>')
+                                        .addClass('btn btn-primary btn-sm saveIngredButton')
+                                        .text('Save');
+
+        var newIngredientLi = $('<li>')
+            .append(newIngredientName)
+            .append(newIngredientCancel)
+            .append(newIngredientSave)
+            .insertBefore($(this).parents('li'));
+        newIngredientName.focus();
+    }
+
+    function submitNewIngredient(event)
+    {
+        if (event.keyCode == 13) {
+            $(this).siblings('button.saveIngredButton').click();
+        }
     }
 
     //
@@ -107,6 +168,12 @@ $(document).ready(function() {
                     .append($('<span>').text(ingredient));
                 ingredientLi.appendTo(ingredientList);
             });
+
+            var addIngredientLi = $('<li>')
+                .data('ingredientId',-1)
+                .append($('<span>').addClass('addIngredient').text('(Add Ingredient)'))
+                .appendTo(ingredientList);
+
             ingredientList.appendTo(ingredientDiv);
 
             // Meal block

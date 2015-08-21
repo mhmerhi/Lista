@@ -1,12 +1,15 @@
 div.mealDiv {
-    width: 300px;
+    width: 600px;
+}
+
+span.editTag,span.addIngredient {
+    font-size: 11px;
+    color: darkblue;
+    cursor: pointer;
 }
 
 span.editTag {
     margin-left: 10px;
-    font-size: 11px;
-    color: darkblue;
-    cursor: pointer;
 }
 
 #bodyContent {

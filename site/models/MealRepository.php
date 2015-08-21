@@ -91,4 +91,17 @@ class MealRepository extends ModelBase {
 
         return $result;
     }
+
+    public function AddIngredientToMeal($mealId, $ingredientId)
+    {
+        $sql = new Sql($this->GetDbAdapter(), 'meal_ingredient');
+        $insert = $sql->insert()
+            ->columns(['meal_id', 'ingredient_id'])
+            ->values(['meal_id' => $mealId, 'ingredient_id' => $ingredientId]);
+
+        $statement = $sql->prepareStatementForSqlObject($insert);
+        $result = $statement->execute();
+
+        return $result !== false;
+    }
 }

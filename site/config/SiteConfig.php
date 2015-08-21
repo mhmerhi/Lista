@@ -32,6 +32,7 @@ class SiteConfig
             'Meals'                 => 'Site\Components\Meals',
             'Planner'               => 'Site\Components\Planner',
             // Models
+            'IngredientRepository'  => 'Site\Models\IngredientRepository',
             'MealRepository'        => 'Site\Models\MealRepository',
         );
 

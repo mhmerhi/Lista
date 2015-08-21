@@ -3,14 +3,19 @@
 namespace Site\Components;
 
 use Reverb\System\ComponentBase;
+use Site\Models\IngredientRepository;
 use Site\Models\MealRepository;
 
 
 class Meals extends ComponentBase
 {
-    public function __construct(MealRepository $mealRepository)
+    private $mealRepository;
+    private $ingredientRepository;
+
+    public function __construct(MealRepository $mealRepository, IngredientRepository $ingredientRepository)
     {
-        $this->mealRepository = $mealRepository;
+        $this->mealRepository       = $mealRepository;
+        $this->ingredientRepository = $ingredientRepository;
     }
 
     protected function RequiresAuthentication()
@@ -44,5 +49,18 @@ class Meals extends ComponentBase
         $affectedRows = $this->mealRepository->EditMeal($mealId, $newName);
 
         $this->ExposeVariable('success', $affectedRows > 0);
+    }
+
+    protected function AddIngredientToMeal($params)
+    {
+        $mealId = $params['mealId'];
+        $newIngredient = $params['ingredientName'];
+
+        // check to see if ingredient already exists, and create it if not!
+        $ingredientId = $this->ingredientRepository->GetIdByName($newIngredient, true);
+        // add ingredient to meal
+        $success = $this->mealRepository->AddIngredientToMeal($mealId, $ingredientId);
+
+        $this->ExposeVariable('success', $success);
     }
 }
