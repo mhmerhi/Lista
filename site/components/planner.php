@@ -13,14 +13,12 @@ class Planner extends ComponentBase
         $this->mealRepository = $mealRepository;
     }
 
-    protected function
-    RequiresAuthentication()
+    protected function RequiresAuthentication()
     {
         return false;
     }
 
-    protected function 
-    Index($params)
+    protected function Index($params)
     {
         $meals = $this->mealRepository->GetAll();
 
@@ -28,4 +26,23 @@ class Planner extends ComponentBase
         $this->ExposeVariable("meals", $meals);
     }
 
+    protected function GetListForMeals($params)
+    {
+        $mealIds = $params['meals'];
+
+        $mealsWithIngredients = $this->mealRepository->GetAllMealsWithIngredients($mealIds);
+
+        $ingredientsList = [];
+        foreach ($mealsWithIngredients as $meal) {
+            foreach ($meal['ingredients'] as $ingredient) {
+                if (!in_array($ingredient, $ingredientsList)) {
+                    $ingredientsList[] = $ingredient;
+                }
+            }
+        }
+
+        sort($ingredientsList);
+
+        $this->ExposeVariable('list', $ingredientsList);
+    }
 }

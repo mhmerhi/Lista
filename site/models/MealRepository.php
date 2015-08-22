@@ -20,7 +20,7 @@ class MealRepository extends ModelBase {
         $this->modelName = 'meal';
     }
 
-    public function GetAllMealsWithIngredients()
+    public function GetAllMealsWithIngredients($mealIds = [])
     {
         $sql = new Sql($this->getDbAdapter());
         $select = $sql->select()
@@ -38,6 +38,10 @@ class MealRepository extends ModelBase {
                 ['ingredient_id' => 'id', 'ingredient_name' => 'name'],
                 Select::JOIN_LEFT
             );
+
+        if (!empty($mealIds)) {
+            $select->where(['m.id' => $mealIds]);
+        }
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();

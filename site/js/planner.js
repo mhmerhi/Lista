@@ -26,8 +26,6 @@ $(document).ready(function() {
         startDaySelect.append($('<option>', {'value': dayIndex, html: days[dayIndex]}));
     }
 
-    addMakeListButton();
-
     //
     // Event Handler Registration
     //
@@ -91,6 +89,8 @@ $(document).ready(function() {
         plannerContainer.find('#tblWeeklyPlanner').remove();
         plannerContainer.append(table);
 
+        addMakeListButton();
+
         return false;
     }
 
@@ -108,16 +108,37 @@ $(document).ready(function() {
         var makeListBtn = $('<button>')
             .attr('id', 'makeShoppingListBtn')
             .html('Make List')
-            .addClass('btn btn-sm');
+            .addClass('btn btn-sm btn-primary');
 
-        var bodyContent = $('#bodyContent');
-        bodyContent.find('#makeShoppingListBtn').remove();
-        bodyContent.append(makeListBtn);
+        var listDiv = $('#listDiv');
+        listDiv.find('#makeShoppingListBtn').remove();
+        listDiv.append(makeListBtn);
         return false;
     }
 
     function makeShoppingList() {
-        // TODO: actually make a list...
-        console.log('list!');
+        var mealLis = $('#tblWeeklyPlanner').find('li');
+        var mealIdArray = [];
+
+        $.each(mealLis, function(id, value) {
+           mealIdArray.push($(value).data('mealid'));
+        });
+
+        $.ajax({
+            url: '/lista/json/planner/getListForMeals',
+            data: {
+                meals: mealIdArray
+            },
+            dataType: 'json',
+            context: $(this),
+            success: function(data) {
+                var listDiv = $('#listDiv');
+
+                var list = $('<textarea>').html(data.list.join('\n')).css('height', data.list.length * 20 + 10 + 'px');
+
+                listDiv.find('textarea').remove();
+                listDiv.append(list);
+            }
+        })
     };
 });

@@ -135,16 +135,18 @@ $(document).ready(function() {
                                         .addClass('btn btn-primary btn-sm saveIngredButton')
                                         .text('Save');
 
-        var newIngredientLi = $('<li>')
+        $('<li>')
             .append(newIngredientName)
             .append(newIngredientCancel)
             .append(newIngredientSave)
             .insertBefore($(this).parents('li'));
+
         newIngredientName.focus();
     }
 
     function submitNewIngredient(event)
     {
+        // submit the new ingredient if Enter key is pressed
         if (event.keyCode == 13) {
             $(this).siblings('button.saveIngredButton').click();
         }

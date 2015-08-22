@@ -2,7 +2,7 @@
     <h3>All Meals</h3>
     <ul id="mealsList">
     <?php foreach ($meals as $meal): ?>
-    <li><?= $meal['name'];?></li>
+    <li data-mealid="<?=$meal['id']?>"><?= $meal['name'];?></li>
     <?php endforeach; ?>
     </ul>
 </div>
@@ -24,4 +24,6 @@
             <button id="btnMakePlanner" class="btn btn-sm btn-primary">Make Planner</button>
         </fieldset>
     </form>
+</div>
+<div id="listDiv">
 </div>
