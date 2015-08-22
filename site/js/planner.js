@@ -101,7 +101,9 @@ $(document).ready(function() {
     function shoppingListCB(data) {
         var listDiv = $('#listDiv');
 
-        var list = $('<textarea>').html(data.list.join('\n')).css('height', data.list.length * 20 + 10 + 'px');
+        var list = $('<textarea>')
+            .html(data.list.join('\n'))
+            .css('height', data.list.length * 20 + 10 + 'px');
 
         listDiv.find('textarea').remove();
         listDiv.append(list);
