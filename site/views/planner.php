@@ -1,13 +1,13 @@
-<div id="meals" class="" style="float:right; width:25%">
+<div id="meals">
     <h3>All Meals</h3>
-    <ul id="mealsList">
+    <ul id="mealsList" class="list-unstyled">
     <?php foreach ($meals as $meal): ?>
     <li data-mealid="<?=$meal['id']?>"><?= $meal['name'];?></li>
     <?php endforeach; ?>
     </ul>
 </div>
 
-<div id="weeklyPlanner" style="width:75%">
+<div id="weeklyPlanner">
     <h3>Weekly Planner</h3>
     <form>
         <fieldset>

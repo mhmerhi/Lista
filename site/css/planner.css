@@ -14,3 +14,12 @@ li {
 .lunchCell,.dinnerCell {
     width: 40%;
 }
+
+#weeklyPlanner {
+    width: 75%;
+}
+
+#meals {
+    float:right;
+    width:23%
+}
