@@ -98,6 +98,14 @@ $(document).ready(function() {
     //
     // Callbacks
     //
+    function shoppingListCB(data) {
+        var listDiv = $('#listDiv');
+
+        var list = $('<textarea>').html(data.list.join('\n')).css('height', data.list.length * 20 + 10 + 'px');
+
+        listDiv.find('textarea').remove();
+        listDiv.append(list);
+    }
 
     //
     // Helpers
@@ -131,14 +139,7 @@ $(document).ready(function() {
             },
             dataType: 'json',
             context: $(this),
-            success: function(data) {
-                var listDiv = $('#listDiv');
-
-                var list = $('<textarea>').html(data.list.join('\n')).css('height', data.list.length * 20 + 10 + 'px');
-
-                listDiv.find('textarea').remove();
-                listDiv.append(list);
-            }
+            success: shoppingListCB
         })
     };
 });
