@@ -1,6 +1,5 @@
 li {
     cursor: pointer;
-    list-style: none;
 }
 
 #bodyContent {
@@ -20,6 +19,6 @@ li {
 }
 
 #meals {
-    float:right;
-    width:23%
+    float: right;
+    width: 23%
 }
