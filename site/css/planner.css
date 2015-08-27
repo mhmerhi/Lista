@@ -1,5 +1,6 @@
 li {
     cursor: pointer;
+    list-style: none;
 }
 
 #bodyContent {
@@ -22,3 +23,30 @@ li {
     float: right;
     width: 23%
 }
+
+#tblWeeklyPlanner tr:nth-child(odd)>td.tableColumnSelected,
+#tblWeeklyPlanner tr:nth-child(odd)>th.tableColumnSelected {
+    background-color: #227722;
+}
+
+#tblWeeklyPlanner td.tableColumnSelected {
+    background-color: #449944;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-color: #007700;
+}
+
+#tblWeeklyPlanner tr:last-child td.tableColumnSelected {
+    border-bottom-style: solid;
+}
+
+#tblWeeklyPlanner th.tableColumnSelected {
+    border-top: 3px solid;
+    border-bottom: none;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-color: #007700;
+}
+

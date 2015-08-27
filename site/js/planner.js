@@ -33,6 +33,7 @@ $(document).ready(function() {
     $('body').on('click', 'table#tblWeeklyPlanner li', selectedMealsListClick);
     $('#btnMakePlanner').on('click', makePlanner);
     $('body').on('click','#makeShoppingListBtn', makeShoppingList);
+    $('body').on('click', 'th.lunchCell,th.dinnerCell', selectColumnForMeals)
 
     //
     // Event Handlers
@@ -41,7 +42,12 @@ $(document).ready(function() {
     {
         var meal = $(this);
 
-        var firstEmptyMealSlot = $('table#tblWeeklyPlanner').find('div:empty:first');
+        var firstEmptyMealSlot;
+        if ($('table#tblWeeklyPlanner').find('.tableColumnSelected').length) {
+            firstEmptyMealSlot = $('table#tblWeeklyPlanner').find('td.tableColumnSelected div:empty:first');
+        } else {
+            firstEmptyMealSlot = $('table#tblWeeklyPlanner').find('div:empty:first');
+        }
         meal.clone().appendTo(firstEmptyMealSlot);
         meal.remove();
     }
@@ -94,6 +100,30 @@ $(document).ready(function() {
         return false;
     }
 
+    function selectColumnForMeals() {
+        var plannerTable = $('#tblWeeklyPlanner');
+
+        // is there a currently-selected column?
+        var currentSelection = false;
+        if (plannerTable.find('.tableColumnSelected').hasClass('lunchCell')) {
+            currentSelection = 'lunchCell';
+        } else if (plannerTable.find('.tableColumnSelected').hasClass('dinnerCell')) {
+            currentSelection = 'dinnerCell';
+        }
+
+        plannerTable.find('.tableColumnSelected').removeClass('tableColumnSelected');
+
+        var cellClass = '';
+        if ($(this).hasClass('lunchCell')) {
+            cellClass = 'lunchCell';
+        } else if ($(this).hasClass('dinnerCell')) {
+            cellClass = 'dinnerCell';
+        }
+
+        if (currentSelection != cellClass) {
+            plannerTable.find('.'+cellClass).addClass('tableColumnSelected');
+        }
+    }
 
     //
     // Callbacks
