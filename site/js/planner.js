@@ -92,6 +92,7 @@ $(document).ready(function() {
         }
 
         // add the weekly planner to the page
+        plannerContainer.find('#tblWeeklyPlanner li').trigger('click');
         plannerContainer.find('#tblWeeklyPlanner').remove();
         plannerContainer.append(table);
 
