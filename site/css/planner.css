@@ -26,11 +26,11 @@ li {
 
 #tblWeeklyPlanner tr:nth-child(odd)>td.tableColumnSelected,
 #tblWeeklyPlanner tr:nth-child(odd)>th.tableColumnSelected {
-    background-color: #227722;
+    background-color: #3D983D;
 }
 
 #tblWeeklyPlanner td.tableColumnSelected {
-    background-color: #449944;
+    background-color: #5BB55B;
     border-top-style: none;
     border-bottom-style: none;
     border-left-style: solid;
