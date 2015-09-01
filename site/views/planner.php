@@ -26,4 +26,5 @@
     </form>
 </div>
 <div id="listDiv">
+    <?= $bathroomlist; ?>
 </div>

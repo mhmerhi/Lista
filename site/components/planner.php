@@ -3,6 +3,7 @@
 namespace Site\Components;
 
 use Reverb\System\ComponentBase;
+use Site\Config\SiteConfig;
 use Site\Models\MealRepository;
 
 
@@ -22,8 +23,8 @@ class Planner extends ComponentBase
     {
         $meals = $this->mealRepository->GetAll();
 
-        $this->ExposeVariable("msg", "Meals!");
-        $this->ExposeVariable("meals", $meals);
+        $this->ExposePartialTemplate('bathroomlist');
+        $this->ExposeVariable('meals', $meals);
     }
 
     protected function GetListForMeals($params)
