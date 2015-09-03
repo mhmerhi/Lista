@@ -140,7 +140,6 @@ $(document).ready(function() {
             .append(newIngredientCancel)
             .append(newIngredientSave)
             .insertBefore($(this).parents('li'));
-
         newIngredientName.focus();
     }
 
