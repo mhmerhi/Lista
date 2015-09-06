@@ -17,7 +17,8 @@ class PlannerFactory {
     public function CreateInstance(DependencyContainer $dependencyContainer)
     {
         $mealRepository = $dependencyContainer->GetInstance('MealRepository');
+        $householdItemsRepository = $dependencyContainer->GetInstance('HouseholdRepository');
 
-        return new Planner($mealRepository);
+        return new Planner($mealRepository, $householdItemsRepository);
     }
 }

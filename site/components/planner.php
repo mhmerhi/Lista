@@ -4,14 +4,16 @@ namespace Site\Components;
 
 use Reverb\System\ComponentBase;
 use Site\Config\SiteConfig;
+use Site\Models\HouseholdRepository;
 use Site\Models\MealRepository;
 
 
 class Planner extends ComponentBase
 {
-    public function __construct(MealRepository $mealRepository)
+    public function __construct(MealRepository $mealRepository, HouseholdRepository $householdRepository)
     {
         $this->mealRepository = $mealRepository;
+        $this->householdRepository = $householdRepository;
     }
 
     protected function RequiresAuthentication()
@@ -22,10 +24,16 @@ class Planner extends ComponentBase
     protected function Index($params)
     {
         $meals = $this->mealRepository->GetAll();
+        $kitchenItems  = null;//$this->householdRepository->GetAllKitchenItems();
+        $bathroomItems = null;//$this->householdRepository->GetAllBathroomItems();
 
+        $this->ExposeVariable('meals', $meals);
+        $this->ExposeVariable('kitchenItems', $kitchenItems);
+        $this->ExposeVariable('bathroomItems', $bathroomItems);
+
+        $this->ExposePartialTemplate('meallist');
         $this->ExposePartialTemplate('bathroomlist');
         $this->ExposePartialTemplate('kitchenlist');
-        $this->ExposeVariable('meals', $meals);
     }
 
     protected function GetListForMeals($params)
