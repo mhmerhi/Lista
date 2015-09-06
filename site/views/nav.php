@@ -18,6 +18,9 @@
                 <a href='/lista/html/meals'>Meals</a>
             </li>
             <li>
+                <a href='/lista/html/household'>Household Items</a>
+            </li>
+            <li>
                 <a href='/lista/html/login/logout'>Log out</a>
             </li>
         </ul>

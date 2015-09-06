@@ -24,6 +24,7 @@ class Planner extends ComponentBase
         $meals = $this->mealRepository->GetAll();
 
         $this->ExposePartialTemplate('bathroomlist');
+        $this->ExposePartialTemplate('kitchenlist');
         $this->ExposeVariable('meals', $meals);
     }
 

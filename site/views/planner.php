@@ -28,3 +28,6 @@
 <div id="listDiv">
     <?= $bathroomlist; ?>
 </div>
+<div id="listDiv">
+    <?= $kitchenlist; ?>
+</div>
