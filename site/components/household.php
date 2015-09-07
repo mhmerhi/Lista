@@ -30,6 +30,12 @@ class Household extends ComponentBase
         $this->ExposeVariable("householdItems", $items);
     }
 
+    protected function GetAllItemTypes()
+    {
+        $types = $this->householdRepository->GetAllTypes();
+        $this->ExposeVariable("itemTypes", $types);
+    }
+
     protected function AddItem($params)
     {
         // todo

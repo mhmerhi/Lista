@@ -36,9 +36,7 @@ class HouseholdRepository extends ModelBase {
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
 
-        $kitchenItems = $result;
-
-        return $kitchenItems;
+        return $result;
     }
 
     public function GetAllBathroomItems()
@@ -58,9 +56,23 @@ class HouseholdRepository extends ModelBase {
         $stmt = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
 
-        $bathroomItems = $result;
+        return $result;
+    }
 
+    public function GetAllTypes()
+    {
+        $sql = new Sql($this->GetDbAdapter());
+        $select = $sql->select()
+            ->columns(['type_id' => 'id', 'type_name' => 'name'])
+            ->from(['ht' => 'household_item_type']);
 
-        return $bathroomItems;
+        $stmt = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        $types = [];
+        foreach ($result as $type) {
+            $types[$type['type_id']] = $type['type_name'];
+        }
+        return $types;
     }
 }

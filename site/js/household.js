@@ -12,6 +12,7 @@ $(document).ready(function() {
     //
     // Get the Items List
     GetItemsList();
+    GetItemTypeList();
 
 
     //
@@ -107,6 +108,19 @@ $(document).ready(function() {
         });
     }
 
+    function getItemTypesCB(data)
+    {
+        var typeList = $('#newHouseholdItemType');
+        typeList.find('option').remove();
+
+        $.each(data.itemTypes, function(id, name) {
+            var typeOption = $('<option>')
+                .val(id)
+                .text(name)
+            typeOption.appendTo(typeList);
+        });
+    }
+
     //
     // Helpers
     //
@@ -117,6 +131,16 @@ $(document).ready(function() {
             dataType: "json",
             context: $(this),
             success: getItemsCB
+        });
+    }
+
+    function GetItemTypeList() {
+        $.ajax({
+            url: '/lista/json/household/getAllItemTypes',
+            data: {},
+            dataType: "json",
+            context: $(this),
+            success: getItemTypesCB
         });
     }
 });
