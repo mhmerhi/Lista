@@ -23,16 +23,16 @@ class Planner extends ComponentBase
 
     protected function Index($params)
     {
-        $meals = $this->mealRepository->GetAll();
-        $kitchenItems  = null;//$this->householdRepository->GetAllKitchenItems();
-        $bathroomItems = null;//$this->householdRepository->GetAllBathroomItems();
+        $meals         = $this->mealRepository->GetAllMealsWithIngredients();
+        $kitchenItems  = $this->householdRepository->GetAllKitchenItems();
+        $bathroomItems = $this->householdRepository->GetAllBathroomItems();
 
         $this->ExposeVariable('meals', $meals);
         $this->ExposeVariable('kitchenItems', $kitchenItems);
         $this->ExposeVariable('bathroomItems', $bathroomItems);
 
         $this->ExposePartialTemplate('meallist');
-        $this->ExposePartialTemplate('bathroomlist');
+         $this->ExposePartialTemplate('bathroomlist');
         $this->ExposePartialTemplate('kitchenlist');
     }
 

@@ -20,9 +20,7 @@
         </fieldset>
     </form>
 </div>
+<?= $bathroomlist; ?>
+<?= $kitchenlist; ?>
 <div id="listDiv">
-    <?= $bathroomlist; ?>
-</div>
-<div id="listDiv">
-    <?= $kitchenlist; ?>
 </div>
