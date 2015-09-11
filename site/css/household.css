@@ -1,7 +1,3 @@
-div.itemDiv {
-    width: 600px;
-}
-
 span.editTag,span.addIngredient {
     font-size: 11px;
     color: darkblue;
@@ -14,4 +10,9 @@ span.editTag {
 
 #bodyContent {
     padding: 0px 20px;
+}
+
+.itemDiv {
+    margin: 10px;
+    width: 300px;
 }

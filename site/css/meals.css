@@ -15,3 +15,8 @@ span.editTag {
 #bodyContent {
     padding: 0px 20px;
 }
+
+.mealDiv {
+    margin: 10px;
+    width: 300px;
+}

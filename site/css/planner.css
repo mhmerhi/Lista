@@ -18,7 +18,12 @@ li {
     width: 75%;
 }
 
-#meals {
+.leftPanel {
+    float:left;
+    width: 75%;
+}
+
+.rightPanel {
     float: right;
     width: 23%
 }
@@ -49,3 +54,16 @@ li {
     border-color: #007700;
 }
 
+li.itemListItem {
+    float: left;
+    width: 25%;
+}
+
+div.plannerSection {
+    clear: both;
+    padding-top: 1px;
+}
+
+#listDiv {
+    padding-top: 20px;
+}
