@@ -1,3 +1,6 @@
+<?php $this->AddScript('planner-household.js'); ?>
+
+
 <div id="meals" class="rightPanel">
     <?= $meallist; ?>
 </div>

@@ -67,3 +67,7 @@ div.plannerSection {
 #listDiv {
     padding-top: 20px;
 }
+
+li.itemSelected {
+    background-color: #99CAFF;
+}

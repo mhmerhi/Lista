@@ -132,9 +132,20 @@ $(document).ready(function() {
     function shoppingListCB(data) {
         var listDiv = $('#listDiv');
 
+        var ingredientList = data.list;
+
+        var householdItemsList = [];
+        var householdItems = $('#kitchenList,#bathroomList').find('li.itemSelected');
+
+        householdItems.each(function(id, val) {
+            householdItemsList.push($(val).text());
+        });
+
+        ingredientList = ingredientList.concat(householdItemsList);
+
         var list = $('<textarea>')
-            .html(data.list.join('\n'))
-            .css('height', data.list.length * 20 + 10 + 'px');
+            .html(ingredientList.join('\n'))
+            .css('height', ingredientList.length * 20 + 10 + 'px');
 
         listDiv.find('textarea').remove();
         listDiv.append(list);

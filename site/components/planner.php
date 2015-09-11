@@ -38,20 +38,23 @@ class Planner extends ComponentBase
 
     protected function GetListForMeals($params)
     {
-        $mealIds = $params['meals'];
-
-        $mealsWithIngredients = $this->mealRepository->GetAllMealsWithIngredients($mealIds);
-
         $ingredientsList = [];
-        foreach ($mealsWithIngredients as $meal) {
-            foreach ($meal['ingredients'] as $ingredient) {
-                if (!in_array($ingredient, $ingredientsList)) {
-                    $ingredientsList[] = $ingredient;
+
+        if (isset($params['meals'])) {
+            $mealIds = $params['meals'];
+
+            $mealsWithIngredients = $this->mealRepository->GetAllMealsWithIngredients($mealIds);
+
+            foreach ($mealsWithIngredients as $meal) {
+                foreach ($meal['ingredients'] as $ingredient) {
+                    if (!in_array($ingredient, $ingredientsList)) {
+                        $ingredientsList[] = $ingredient;
+                    }
                 }
             }
-        }
 
-        sort($ingredientsList);
+            sort($ingredientsList);
+        }
 
         $this->ExposeVariable('list', $ingredientsList);
     }
