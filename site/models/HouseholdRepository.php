@@ -20,6 +20,19 @@ class HouseholdRepository extends ModelBase {
         $this->modelName = 'household_item';
     }
 
+    public function AddItem($name, $typeId)
+    {
+        $sql = new Sql($this->GetDbAdapter());
+        $insert = $sql->insert('household_item')
+            ->columns(['name', 'type_id'])
+            ->values(['name' => $name, 'type_id' => $typeId]);
+
+        $statement = $sql->prepareStatementForSqlObject($insert);
+        $result = $statement->execute()->getGeneratedValue();
+
+        return $result;
+    }
+
     public function GetAllKitchenItems()
     {
         $sql = new Sql($this->GetDbAdapter());

@@ -38,7 +38,9 @@ class Household extends ComponentBase
 
     protected function AddItem($params)
     {
-        // todo
+        $newId = $this->householdRepository->AddItem($params['name'], $params['typeId']);
+
+        $this->ExposeVariable('success', $newId !== false);
     }
 
     protected function EditItem($params)

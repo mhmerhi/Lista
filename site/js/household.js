@@ -18,7 +18,7 @@ $(document).ready(function() {
     //
     // Event Handler Registration
     //
-    $('#newItemSubmit').on('click', addNewItem);
+    $('#newHouseholdItemSubmit').on('click', addNewItem);
     $('#householdItemsList').on('click', 'div.itemDiv span.editTag', makeItemEditable);
     $('#householdItemsList').on('click', 'input', function() {return false;});
     $('#householdItemsList').on('click', 'button.editButton', editItem);
@@ -31,7 +31,8 @@ $(document).ready(function() {
     {
         // ajax the new item off to be added to database
         var data = {
-            'name': $('#newItemName').val()
+            'name':   $('#newHouseholdItemName').val(),
+            'typeId': $('#newHouseholdItemType').val()
         };
         $.ajax({
             url: '/lista/json/household/addItem',
