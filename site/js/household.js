@@ -48,35 +48,48 @@ $(document).ready(function() {
     function makeItemEditable()
     {
         var oldName = $(this).siblings('span.itemName').text();
+        var oldType = $(this).siblings('span.itemType').text();
+
         $(this).siblings('input,button,span').remove();
         $(this).parent()
-            .prepend($('<button>').addClass('btn btn-sm cancelButton').text('Cancel').data('oldName', oldName))
+            .prepend($('<button>')
+                .addClass('btn btn-sm cancelButton')
+                .text('Cancel')
+                .data('oldName', oldName)
+                .data('oldType', oldType)
+            )
             .prepend($('<button>').addClass('btn btn-primary btn-sm editButton').text('Save'))
-            .prepend($('<input>').attr('type', 'text').val(oldName));
+            .prepend($('#newHouseholdItemType').clone().attr('id', 'editHouseholdItemType'))
+            .prepend($('<input>').attr('type', 'text').addClass('itemName').val(oldName));
         $(this).remove();
     }
 
     function editItem()
     {
-        var itemId   = $(this).parents('div.itemDiv').data('itemId');
-        var itemName = $(this).siblings('input').val();
+        var itemId       = $(this).parents('div.itemDiv').data('itemId');
+        var itemName     = $(this).siblings('input').val();
+        var itemTypeId   = $(this).siblings('select').val();
 
         // ajax the new name and id up to the server!
         $.ajax({
             url: '/lista/json/household/editItem',
             data: {
                 id: itemId,
-                name: itemName
+                name: itemName,
+                type: itemTypeId
             },
             dataType: 'json',
             context: $(this),
             success: function() {
                 // Decide: do this this way, or just get the whole list again.
                 var newName = $(this).siblings('input').val();
+                var newTypeName = $(this).siblings('select').find('option:selected').text();
+
                 $(this).parents('div.itemDiv')
-                    .prepend($('<span>').addClass('editTag').text('(Edit)'))
-                    .prepend($('<span>').addClass('itemName').text(newName));
-                $(this).parents('div.itemDiv').find('input,button').remove();
+                    .prepend($('<span>').addClass('itemType').text(newTypeName))
+                    .prepend($('<span>').addClass('itemName').text(newName))
+                    .prepend($('<span>').addClass('editTag').text('(Edit)'));
+                $(this).parents('div.itemDiv').find('input,button,select').remove();
             }
         });
 
@@ -86,9 +99,10 @@ $(document).ready(function() {
     function cancelEditItem()
     {
         $(this).parents('div.itemDiv')
-            .prepend($('<span>').addClass('editTag').text('(Edit)'))
-            .prepend($('<span>').addClass('itemName').text($(this).data('oldName')));
-        $(this).parents('div.itemDiv').children('input,button').remove();
+            .prepend($('<span>').addClass('itemType').text($(this).data('oldType')))
+            .prepend($('<span>').addClass('itemName').text($(this).data('oldName')))
+            .prepend($('<span>').addClass('editTag').text('(Edit)'));
+        $(this).parents('div.itemDiv').children('input,button,select').remove();
     }
 
     //
@@ -103,8 +117,9 @@ $(document).ready(function() {
             var itemLi = $('<div>')
                 .data('itemId', itemId)
                 .addClass("itemDiv well well-sm")
+                .append($('<span>').addClass('editTag').text('(Edit)'))
                 .append($('<span>').addClass('itemName').text(item.name))
-                .append($('<span>').addClass('editTag').text('(Edit)'));
+                .append($('<span>').addClass('itemType').text(item.type));
             itemLi.appendTo(itemsList);
         });
     }

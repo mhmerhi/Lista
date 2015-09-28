@@ -1,11 +1,16 @@
-span.editTag,span.addIngredient {
+span.editTag {
     font-size: 11px;
     color: darkblue;
     cursor: pointer;
+    float: right;
 }
 
-span.editTag {
-    margin-left: 10px;
+span.itemName,span.itemType {
+    display: block;
+}
+
+span.itemName {
+    font-size: large;
 }
 
 #bodyContent {
