@@ -1,3 +1,4 @@
+<?php $this->AddStylesheet('itemList.css'); ?>
 <div id="household" class="">
     <h3>All Items</h3>
     <div id="householdItemsList">

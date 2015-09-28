@@ -1,27 +1,9 @@
-div.itemDiv {
-    width: 600px;
-}
-
-span.editTag,span.addIngredient {
+span.addIngredient {
     font-size: 11px;
     color: darkblue;
     cursor: pointer;
 }
 
-span.editTag {
-    margin-left: 10px;
-    float: right;
-}
-
 #bodyContent {
     padding: 0px 20px;
-}
-
-.mealDiv {
-    margin: 10px;
-    width: 300px;
-}
-
-span.mealName {
-    font-size: large;
 }

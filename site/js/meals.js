@@ -18,7 +18,7 @@ $(document).ready(function() {
     // Event Handler Registration
     //
     $('#newMealSubmit').on('click', addNewMeal);
-    $('#mealsList').on('click', 'div.mealDiv span.editTag', makeMealEditable);
+    $('#mealsList').on('click', 'div.itemDiv span.editTag', makeMealEditable);
     $('#mealsList').on('click', 'input', function() {return false;});
     $('#mealsList').on('click', 'button.editButton', editMeal);
     $('#mealsList').on('click', 'button.cancelButton', cancelEditMeal);
@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     function makeMealEditable()
     {
-        var oldName = $(this).siblings('span.mealName').text();
+        var oldName = $(this).siblings('span.itemName').text();
         $(this).siblings('input,button,span').remove();
         $(this).parent()
             .prepend($('<button>').addClass('btn btn-sm cancelButton').text('Cancel').data('oldName', oldName))
@@ -60,7 +60,7 @@ $(document).ready(function() {
 
     function editMeal()
     {
-        var mealId   = $(this).parents('div.mealDiv').data('mealId');
+        var mealId   = $(this).parents('div.itemDiv').data('mealId');
         var mealName = $(this).siblings('input').val();
 
         // ajax the new name and id up to the server!
@@ -75,10 +75,10 @@ $(document).ready(function() {
             success: function() {
                 // Decide: do this this way, or just get the whole list again.
                 var newName = $(this).siblings('input').val();
-                $(this).parents('div.mealDiv')
-                    .prepend($('<span>').addClass('mealName').text(newName))
+                $(this).parents('div.itemDiv')
+                    .prepend($('<span>').addClass('itemName').text(newName))
                     .prepend($('<span>').addClass('editTag').text('(Edit)'));
-                $(this).parents('div.mealDiv').find('input,button').remove();
+                $(this).parents('div.itemDiv').find('input,button').remove();
             }
         });
 
@@ -87,10 +87,10 @@ $(document).ready(function() {
 
     function cancelEditMeal()
     {
-        $(this).parents('div.mealDiv')
-            .prepend($('<span>').addClass('mealName').text($(this).data('oldName')))
+        $(this).parents('div.itemDiv')
+            .prepend($('<span>').addClass('itemName').text($(this).data('oldName')))
             .prepend($('<span>').addClass('editTag').text('(Edit)'));
-        $(this).parents('div.mealDiv').children('input,button').remove();
+        $(this).parents('div.itemDiv').children('input,button').remove();
     }
 
     function cancelIngredient()
@@ -100,7 +100,7 @@ $(document).ready(function() {
 
     function saveIngredient()
     {
-        var mealId   = $(this).parents('div.mealDiv').data('mealId');
+        var mealId   = $(this).parents('div.itemDiv').data('mealId');
         var ingredientName = $(this).siblings('input').val();
 
         // ajax the new name and id up to the server!
@@ -117,7 +117,7 @@ $(document).ready(function() {
                 var newName = $(this).siblings('input').val();
                 $(this).parents('li')
                     .append($('<span>').text(ingredientName));
-                $(this).parents('div.mealDiv').find('input,button').remove();
+                $(this).parents('div.itemDiv').find('input,button').remove();
             }
         });
 
@@ -157,7 +157,7 @@ $(document).ready(function() {
     function getMealsCB(data)
     {
         var mealListUL = $('#mealsList');
-        mealListUL.find('div.mealDiv').remove();
+        mealListUL.find('div.itemDiv').remove();
 
         $.each(data.meals, function(mealId, meal) {
             // Ingredients List
@@ -180,9 +180,9 @@ $(document).ready(function() {
             // Meal block
             var mealLi = $('<div>')
                 .data('mealId', mealId)
-                .addClass("mealDiv well well-sm")
+                .addClass("itemDiv well well-sm")
                 .append($('<span>').addClass('editTag').text('(Edit)'))
-                .append($('<span>').addClass('mealName').text(meal.meal_name))
+                .append($('<span>').addClass('itemName').text(meal.meal_name))
                 .append(ingredientList);
             mealLi.appendTo(mealListUL);
         });
