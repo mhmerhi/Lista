@@ -10,6 +10,7 @@ span.editTag,span.addIngredient {
 
 span.editTag {
     margin-left: 10px;
+    float: right;
 }
 
 #bodyContent {
@@ -19,4 +20,8 @@ span.editTag {
 .mealDiv {
     margin: 10px;
     width: 300px;
+}
+
+span.mealName {
+    font-size: large;
 }

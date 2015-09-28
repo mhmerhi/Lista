@@ -76,8 +76,8 @@ $(document).ready(function() {
                 // Decide: do this this way, or just get the whole list again.
                 var newName = $(this).siblings('input').val();
                 $(this).parents('div.mealDiv')
-                    .prepend($('<span>').addClass('editTag').text('(Edit)'))
-                    .prepend($('<span>').addClass('mealName').text(newName));
+                    .prepend($('<span>').addClass('mealName').text(newName))
+                    .prepend($('<span>').addClass('editTag').text('(Edit)'));
                 $(this).parents('div.mealDiv').find('input,button').remove();
             }
         });
@@ -88,8 +88,8 @@ $(document).ready(function() {
     function cancelEditMeal()
     {
         $(this).parents('div.mealDiv')
-            .prepend($('<span>').addClass('editTag').text('(Edit)'))
-            .prepend($('<span>').addClass('mealName').text($(this).data('oldName')));
+            .prepend($('<span>').addClass('mealName').text($(this).data('oldName')))
+            .prepend($('<span>').addClass('editTag').text('(Edit)'));
         $(this).parents('div.mealDiv').children('input,button').remove();
     }
 
@@ -181,8 +181,8 @@ $(document).ready(function() {
             var mealLi = $('<div>')
                 .data('mealId', mealId)
                 .addClass("mealDiv well well-sm")
-                .append($('<span>').addClass('mealName').text(meal.meal_name))
                 .append($('<span>').addClass('editTag').text('(Edit)'))
+                .append($('<span>').addClass('mealName').text(meal.meal_name))
                 .append(ingredientList);
             mealLi.appendTo(mealListUL);
         });
