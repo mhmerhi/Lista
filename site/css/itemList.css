@@ -1,0 +1,19 @@
+span.editTag {
+    font-size: 11px;
+    color: darkblue;
+    cursor: pointer;
+    float: right;
+}
+
+span.itemName,span.itemType {
+    display: block;
+}
+
+span.itemName {
+    font-size: large;
+}
+
+.itemDiv {
+    margin: 10px;
+    width: 300px;
+}

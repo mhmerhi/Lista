@@ -22,7 +22,6 @@ $(document).ready(function() {
     //
     function toggleSelectItem(data)
     {
-        console.log('has');
         $(this).toggleClass('itemSelected');
     }
 
@@ -30,33 +29,10 @@ $(document).ready(function() {
     //
     // Callbacks
     //
-    function getItemsCB(data)
-    {
-        var itemsList = $('#householdItemsList');
-        itemsList.find('div.itemDiv').remove();
-
-        $.each(data.householdItems, function(itemId, item) {
-            var itemLi = $('<div>')
-                .data('itemId', itemId)
-                .addClass("itemDiv well well-sm")
-                .append($('<span>').addClass('itemName').text(item.name))
-                .append($('<span>').addClass('editTag').text('(Edit)'));
-            itemLi.appendTo(itemsList);
-        });
-    }
 
 
     //
     // Helpers
     //
-    function GetItemsList() {
-        $.ajax({
-            url: '/lista/json/household/getAllItems',
-            data: {},
-            dataType: "json",
-            context: $(this),
-            success: getItemsCB
-        });
-    }
 
 });

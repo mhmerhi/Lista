@@ -33,6 +33,43 @@ class HouseholdRepository extends ModelBase {
         return $result;
     }
 
+    public function EditItem($id, $name, $typeId)
+    {
+        $sql = new Sql($this->getDbAdapter(), 'household_item');
+        $update = $sql->update()
+            ->set(['name' => $name, 'type_id' => $typeId])
+            ->where(['id' => $id]);
+
+        $statement = $sql->prepareStatementForSqlObject($update);
+        $result = $statement->execute()->getAffectedRows();
+
+        return $result;
+    }
+
+    public function GetAllItems()
+    {
+        $sql = new Sql($this->GetDbAdapter());
+        $select = $sql->select()
+            ->columns(['item_id' => 'id', 'item_name' => 'name'])
+            ->from(['hh' => 'household_item'])
+            ->join(
+                ['ht' => 'household_item_type'],
+                'ht.id = hh.type_id',
+                ['type_name' => 'name'],
+                SELECT::JOIN_LEFT
+            );
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+
+        $resultArr = [];
+        foreach ($result as $row) {
+            $resultArr[$row['item_id']] = ['name' => $row['item_name'], 'type' => $row['type_name']];
+        }
+
+        return $resultArr;
+    }
+
     public function GetAllKitchenItems()
     {
         $sql = new Sql($this->GetDbAdapter());

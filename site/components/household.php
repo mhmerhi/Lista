@@ -26,7 +26,7 @@ class Household extends ComponentBase
 
     protected function GetAllItems()
     {
-        $items = $this->householdRepository->GetAll();
+        $items = $this->householdRepository->GetAllItems();
         $this->ExposeVariable("householdItems", $items);
     }
 
@@ -45,6 +45,12 @@ class Household extends ComponentBase
 
     protected function EditItem($params)
     {
-        // todo
+        $itemId  = $params['id'];
+        $newName = $params['name'];
+        $newTypeId = $params['type'];
+
+        $affectedRows = $this->householdRepository->EditItem($itemId, $newName, $newTypeId);
+
+        $this->ExposeVariable('success', $affectedRows > 0);
     }
 }
